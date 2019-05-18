@@ -80,7 +80,7 @@ void Cliente::escribirFic_bin_clientes(Cliente *c, int num_clientes) {
 
 	FILE *f;
 	f = fopen("Clientes.txt", "w");
-	fprintf(f, "%i\n", num_clientes);
+
 	cout<<num_clientes<<endl;
 	for (int i = 0; i < num_clientes; i++) {
 

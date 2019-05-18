@@ -9,6 +9,7 @@
 using namespace articulo;
 #include <iostream>
 using namespace std;
+#include "string.h"
 
 
 Articulo::Articulo()
