@@ -12,64 +12,42 @@
 using namespace std;
 using namespace cliente;
 
-Cliente::Cliente()
-{
-	this->nom = NULL;
-	this->ape = NULL;
+Cliente::Cliente() {
+	this->nom = new char[30];
+	this->ape = new char [30];
 	this->dni = new char[9];
 	dni = "*********";
-
-
 	this->acumulado = 0.0;
-	this->numClientes = 0;
 }
 
-
-
-Cliente::~Cliente()
-{
+Cliente::~Cliente() {
 	delete[] nom;
 	delete[] ape;
 	delete[] dni;
-
 }
-void Cliente::setNom(char* nom)
-{
-	this->nom =nom;
+void Cliente::setNom(char* nom) {
+	this->nom = nom;
 }
-char* Cliente::getNom() const
-{
+char* Cliente::getNom() const {
 	return this->nom;
 }
-void Cliente::setApe(char* ape)
-{
-	this->ape =ape;
+void Cliente::setApe(char* ape) {
+	this->ape = ape;
 }
-char* Cliente::getApe() const
-{
+char* Cliente::getApe() const {
 	return this->ape;
 }
-void Cliente::setDni(char* dni)
-{
-	this->dni =dni;
+void Cliente::setDni(char* dni) {
+	this->dni = dni;
 }
-char* Cliente::getDni() const
-{
+char* Cliente::getDni() const {
 	return this->dni;
 }
-void Cliente::setAcumulado(float acumulado)
-{
-	this->acumulado =acumulado;
+void Cliente::setAcumulado(float acumulado) {
+	this->acumulado = acumulado;
 }
 float Cliente::getAcumulado() const {
 	return this->acumulado;
-}
-void Cliente::setNumClientes(int num)
-{
-	this->numClientes =num;
-}
-int Cliente::getNumClientes() const {
-	return this->numClientes;
 }
 
 /**
@@ -77,11 +55,9 @@ int Cliente::getNumClientes() const {
  */
 void Cliente::escribirFic_bin_clientes(Cliente *c, int num_clientes) {
 
-
 	FILE *f;
 	f = fopen("Clientes.txt", "w");
-
-	cout<<num_clientes<<endl;
+	fprintf(f, "%i\n", num_clientes);
 	for (int i = 0; i < num_clientes; i++) {
 
 		fprintf(f, "%f\n", (c + i)->acumulado);
@@ -95,7 +71,6 @@ void Cliente::escribirFic_bin_clientes(Cliente *c, int num_clientes) {
 	}
 	fclose(f);
 
-
 }
 /**
  * Metodo para leer los clientes del fichero
@@ -106,7 +81,6 @@ void Cliente::LeerFic_bin_clientes(Cliente *c) {
 	int num_clientes = 0;
 
 	fscanf(f, " %i", &num_clientes);
-
 	int len = 0;
 	float acumulado = 0.0;
 	for (int i = 0; i < num_clientes; i++) {
@@ -114,39 +88,31 @@ void Cliente::LeerFic_bin_clientes(Cliente *c) {
 
 		(c + i)->acumulado = acumulado;
 
-
 		fscanf(f, "%i", &len);
 		(c + i)->nom = new char[len];
-		fscanf(f, " %[^\n]s", (c + i)->nom);
-
+		fscanf(f, " %s", (c + i)->nom);
 
 		fscanf(f, "%i", &len);
 		(c + i)->ape = new char[len];
-		fscanf(f, " %[^\n]s", (c + i)->ape);
-
-
+		fscanf(f, " %s", (c + i)->ape);
 
 		fscanf(f, "%i", &len);
 		(c + i)->dni = new char[len];
-		fscanf(f, " %[^\n]s", (c + i)->dni);
-
+		fscanf(f, " %s", (c + i)->dni);
 
 	}
 	fclose(f);
-
-
 
 }
 
 /**
  * Metodo para imprimir clientes
  */
-void Cliente:: imprimirCliente()
-{
+void Cliente::imprimirCliente() {
 
-			cout << "Nombre: " << this->nom << endl;
-			cout << "Apellido: " <<this->ape << endl;
-			cout << "Dni: " << this->dni << endl;
-			cout << "Acumulado: " << this->acumulado << endl;
-			cout << endl;
+	cout << "Nombre: " << this->nom << endl;
+	cout << "Apellido: " << this->ape << endl;
+	cout << "Dni: " << this->dni << endl;
+	cout << "Acumulado: " << this->acumulado << endl;
+	cout << endl;
 }

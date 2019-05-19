@@ -21,7 +21,7 @@ private:
 
 public:
 	Textil();
-	~Textil();
+	virtual ~Textil();
 	int getStockXS() const;
 	int getStockS() const;
 	int getStockM() const;

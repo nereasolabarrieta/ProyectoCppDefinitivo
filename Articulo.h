@@ -9,28 +9,26 @@
 #define ARTICULO_H_
 #include "Cliente.h"
 using namespace cliente;
-namespace articulo
-{
-	class Articulo
-	{
-		private:
-			char *codigo;
-			char *nombre;
-			float precio;
+namespace articulo {
+class Articulo {
+private:
+	char *codigo;
+	char *nombre;
+	float precio;
 
-		public:
-			Articulo();
-			~Articulo();
+public:
+	Articulo();
+	virtual ~Articulo();
 
-			char* getCodigo() const;
-			char* getNombre() const;
-			float getPrecio() const;
+	char* getCodigo() const;
+	char* getNombre() const;
+	float getPrecio() const;
 
-			void setCodigo(char* codigo);
-			void setNombre(char* nombre);
-			void setPrecio(float precio);
-			virtual void Imprimir();
-			void enviarImporte(float precio, int cantidad, Cliente * cliente);
-	};
+	void setCodigo(char* codigo);
+	void setNombre(char* nombre);
+	void setPrecio(float precio);
+	virtual void Imprimir();
+	void enviarImporte(float precio, int cantidad, Cliente * cliente);
+};
 }
 #endif /* ARTICULO_H_ */

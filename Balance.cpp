@@ -18,61 +18,47 @@ Balance::Balance() {
 	this->importeStock = 0.0;
 }
 
-float Balance::getStock() const
-{
+float Balance::getStock() const {
 	return this->importeStock;
 }
-float Balance::getRealizable() const
-{
+float Balance::getRealizable() const {
 	return this->importeRealizable;
 }
-float Balance::getDisponible() const
-{
+float Balance::getDisponible() const {
 	return this->importeDisponible;
 }
-float Balance::getANC() const
-{
+float Balance::getANC() const {
 	return this->importeANC;
 }
-float Balance::getPC() const
-{
+float Balance::getPC() const {
 	return this->importePC;
 }
-float Balance::getPNC() const
-{
+float Balance::getPNC() const {
 	return this->importePNC;
 }
-float Balance::getPN() const
-{
+float Balance::getPN() const {
 	return this->importePN;
 }
 
-void Balance::setStock(float valor)
-{
+void Balance::setStock(float valor) {
 	this->importeStock = valor;
 }
-void Balance::setRealizable(float valor)
-{
+void Balance::setRealizable(float valor) {
 	this->importeRealizable = valor;
 }
-void Balance::setDisponible(float valor)
-{
+void Balance::setDisponible(float valor) {
 	this->importeDisponible = valor;
 }
-void Balance::setANC(float valor)
-{
+void Balance::setANC(float valor) {
 	this->importeANC = valor;
 }
-void Balance::setPC(float valor)
-{
+void Balance::setPC(float valor) {
 	this->importePC = valor;
 }
-void Balance::setPNC(float valor)
-{
+void Balance::setPNC(float valor) {
 	this->importePNC = valor;
 }
-void Balance::setPN(float valor)
-{
+void Balance::setPN(float valor) {
 	this->importePN = valor;
 }
 /**
@@ -110,8 +96,9 @@ void Balance::introducir() {
 		cout << endl;
 
 		if (!this->cuadra()) {
-			cout <<
-					"El balance no cuadra. Por favor, introduce otra vez los datos:" <<endl;
+			cout
+					<< "El balance no cuadra. Por favor, introduce otra vez los datos:"
+					<< endl;
 		}
 
 	} while (!this->cuadra());
@@ -136,28 +123,26 @@ bool Balance::existsFile(char* filename) {
  * Metodo para imprimir el balance
  */
 void Balance::imprimirBalance() {
-	float totalA = this->importeANC
-			+ this->importeDisponible + this->importeStock
-			+ this->importeRealizable;
-	float totalP = this->importePC + this->importePN
-			+ this->importePNC;
-	cout <<"BALANCE: " << endl;
+	float totalA = this->importeANC + this->importeDisponible
+			+ this->importeStock + this->importeRealizable;
+	float totalP = this->importePC + this->importePN + this->importePNC;
+	cout << "BALANCE: " << endl;
 	cout << endl;
-	cout <<"TOTAL ACTIVO: " <<totalA<< endl;
-	cout <<"Activo no corriente:  "<<this->importeANC<< endl;
-	cout <<"Activo corriente:  " <<
-			this->importeDisponible + this->importeStock
-					+ this->importeRealizable<< endl;
-	cout <<"Stock:  "<<this->importeStock<< endl;
-	cout <<"Realizable:  "<<this->importeRealizable<< endl;
-	cout <<"Disponible:  "<<this->importeDisponible<< endl;
+	cout << "TOTAL ACTIVO: " << totalA << endl;
+	cout << "Activo no corriente:  " << this->importeANC << endl;
+	cout << "Activo corriente:  "
+			<< this->importeDisponible + this->importeStock
+					+ this->importeRealizable << endl;
+	cout << "Stock:  " << this->importeStock << endl;
+	cout << "Realizable:  " << this->importeRealizable << endl;
+	cout << "Disponible:  " << this->importeDisponible << endl;
 
-	cout <<"--------------------------"<< endl;
+	cout << "--------------------------" << endl;
 
-	cout <<"TOTAL PASIVO Y PATRIMONIO NETO:  "<<totalP<< endl;
-	cout <<"Patrimonio neto:  "<<this->importePN<< endl;
-	cout <<"Pasivo no corriente:  "<<this->importePNC<< endl;
-	cout <<"Pasivo corriente:  "<<this->importePC<< endl;
+	cout << "TOTAL PASIVO Y PATRIMONIO NETO:  " << totalP << endl;
+	cout << "Patrimonio neto:  " << this->importePN << endl;
+	cout << "Pasivo no corriente:  " << this->importePNC << endl;
+	cout << "Pasivo corriente:  " << this->importePC << endl;
 }
 /**
  * Metodo para leer el fichero del balance.dat
@@ -210,10 +195,11 @@ bool Balance::cuadra() {
 /**
  * Metodo para comprobar si el balance cuadra al modificar
  */
-bool Balance::cuadra(float importeStock,float importeRealizable, float importeDisponible,
-						float importeANC, float importePC, float importePNC,float importePN) {
-	float activo = importeStock + importeRealizable
-			+ importeDisponible + importeANC;
+bool Balance::cuadra(float importeStock, float importeRealizable,
+		float importeDisponible, float importeANC, float importePC,
+		float importePNC, float importePN) {
+	float activo = importeStock + importeRealizable + importeDisponible
+			+ importeANC;
 	float pasivo = importePC + importePNC + importePN;
 	if (activo == pasivo)
 
@@ -227,16 +213,18 @@ bool Balance::cuadra(float importeStock,float importeRealizable, float importeDi
  */
 void Balance::calcularRatios() {
 	float exigible = this->importePC + this->importePNC;
-	float AC = this->importeDisponible + this->importeRealizable + this->importeStock;
+	float AC = this->importeDisponible + this->importeRealizable
+			+ this->importeStock;
 	float endeudamiento = exigible / this->importePN;
 	float solvencia = AC / this->importePC;
-	float acid_test = (this->importeDisponible + this->importeRealizable) / this->importePC;
-	float liquidez =this->importeDisponible / this->importePC;
+	float acid_test = (this->importeDisponible + this->importeRealizable)
+			/ this->importePC;
+	float liquidez = this->importeDisponible / this->importePC;
 
 	cout << endl;
 	cout << "RATIOS:" << endl;
 	cout << endl;
-	cout << "Endeudamiento:" <<endeudamiento << endl;
+	cout << "Endeudamiento:" << endeudamiento << endl;
 	cout << "Solvencia:" << solvencia << endl;
 	cout << "Acid test:" << acid_test << endl;
 	cout << "Liquidez:" << liquidez << endl;
@@ -248,8 +236,9 @@ void Balance::calcularRatios() {
 void Balance::modificarBalance() {
 
 	char opcion;
-	bool cuadra=true;
-	float importeStock, importeRealizable,importeDisponible,importeANC, importePC,importePNC,importePN;
+	bool cuadra = true;
+	float importeStock, importeRealizable, importeDisponible, importeANC,
+			importePC, importePNC, importePN;
 	importePNC = this->importePNC;
 	importeANC = this->importeANC;
 	importePC = this->importePC;
@@ -257,118 +246,99 @@ void Balance::modificarBalance() {
 	importeDisponible = this->importeDisponible;
 	importeRealizable = this->importeRealizable;
 
-	importePN =this->importePN;
+	importePN = this->importePN;
 
 	//do {
-		do {
+	do {
 
-			cout << "Que quieres modificar del balance?" << endl;
-			cout << " 1. Activo no corriente" << endl;
-			cout << " 2. Stock" << endl;
-			cout << " 3. Disponible" << endl;
-			cout << " 4. Realizable" << endl;
-			cout << " 5. Patrimonio neto" << endl;
-			cout << " 6. Pasivo corriente" << endl;
-			cout << " 7. Pasivo no corriente" << endl;
-			cout << " a. GUARDAR CAMBIOS" << endl;
-			cout << " c. CANCELAR" << endl;
+		cout << "Que quieres modificar del balance?" << endl;
+		cout << " 1. Activo no corriente" << endl;
+		cout << " 2. Stock" << endl;
+		cout << " 3. Disponible" << endl;
+		cout << " 4. Realizable" << endl;
+		cout << " 5. Patrimonio neto" << endl;
+		cout << " 6. Pasivo corriente" << endl;
+		cout << " 7. Pasivo no corriente" << endl;
+		cout << " a. GUARDAR CAMBIOS" << endl;
+		cout << " c. CANCELAR" << endl;
 
-			cout << "  Introduzca una opcion del 1-7:" << endl;
+		cout << "  Introduzca una opcion del 1-7:" << endl;
 
-			cin >> opcion;
+		cin >> opcion;
+		cout << endl;
+		switch (opcion) {
+		case '1': {
+			cout << "Introducir cantidad" << endl;
+			cin >> importeANC;
 			cout << endl;
-			switch (opcion) {
-			case '1':
-			{
-				cout << "Introducir cantidad" << endl;
-				cin >> importeANC;
-				cout << endl;
-				//this->importeANC = importeANC;
+		}
+			break;
+		case '2': {
+			cout << "Introducir cantidad" << endl;
+			cin >> importeStock;
+			cout << endl;
+		}
+			break;
+		case '3': {
+			cout << "Introducir cantidad" << endl;
+			cin >> importeDisponible;
+			cout << endl;
+		}
+			break;
+		case '4': {
+			cout << "Introducir cantidad" << endl;
+			cin >> importeRealizable;
+			cout << endl;
+		}
+			break;
+		case '5': {
+			cout << "Introducir cantidad" << endl;
+			cin >> importePN;
+			cout << endl;
+		}
+			break;
+		case '6': {
+			cout << "Introducir cantidad" << endl;
+			cin >> importePC;
+			cout << endl;
+		}
+			break;
+		case '7': {
+			cout << "Introducir cantidad" << endl;
+			cin >> importePNC;
+			cout << endl;
+		}
+			break;
+		case 'c': {
+			cout << "Saliendo.." << endl;
+			break;
+		}
+		case 'a': {
+			cout << "Guardando.." << endl;
+			if (!this->cuadra(importeStock, importeRealizable,
+					importeDisponible, importeANC, importePC, importePNC,
+					importePN)) {
+				cout
+						<< "El balance no cuadra. Por favor, introduce otra vez los datos:"
+						<< endl;
+				cuadra = false;
+			} else {
+				this->importeANC = importeANC;
+				this->importeDisponible = importeDisponible;
+				this->importePC = importePC;
+				this->importePN = importePN;
+				this->importePNC = importePNC;
+				this->importeStock = importeStock;
+				this->importeRealizable = importeRealizable;
+				cuadra = true;
 			}
-				break;
-			case '2':
-			{
-				cout << "Introducir cantidad" << endl;
-				cin >> importeStock;
-				cout << endl;
-				//this->importeStock = valor;
-			}
-				break;
-			case '3':
-			{
-				cout << "Introducir cantidad" << endl;
-				cin >> importeDisponible;
-				cout << endl;
-				//this->importeDisponible = importeDisponible;
-			}
-				break;
-			case '4':
-			{
-				cout << "Introducir cantidad" << endl;
-				cin >> importeRealizable;
-				cout << endl;
-				//this->importeRealizable = importeRealizable;
-			}
-				break;
-			case '5':
-			{
-				cout << "Introducir cantidad" << endl;
-				cin >> importePN;
-				cout << endl;
-				//this->importePN = importePN;
-			}
-				break;
-			case '6':
-			{
-				cout << "Introducir cantidad" << endl;
-				cin >> importePC;
-				cout << endl;
-				//this->importePC = importePC;
-			}
-				break;
-			case '7':
-			{
-				cout << "Introducir cantidad" << endl;
-				cin >> importePNC;
-				cout << endl;
-				//this->importePNC = importePNC;
-			}
-				break;
-			case 'c':
-			{
-				cout <<"Saliendo.." <<endl;
-				break;
-			}
-			case 'a':
-			{
-				cout <<"Guardando.." <<endl;
-				if (!this->cuadra(importeStock,importeRealizable,
-								importeDisponible, importeANC, importePC, importePNC,importePN))
-						{
-							cout<<"El balance no cuadra. Por favor, introduce otra vez los datos:" <<endl;
-							cuadra=false;
-						}
-						else {
-							this->importeANC=importeANC;
-							this->importeDisponible=importeDisponible;
-							this->importePC=importePC;
-							this->importePN=importePN;
-							this->importePNC=importePNC;
-							this->importeStock=importeStock;
-							this->importeRealizable=importeRealizable;
-							cuadra=true;
-						}
-			}
-				break;
-			default:
-				cout <<"Esa opcion no esta disponible" <<endl;
-				break;
-			}
-		} while (opcion != 'c'&& (opcion != 'a' || cuadra == false) );
+		}
+			break;
+		default:
+			cout << "Esa opcion no esta disponible" << endl;
+			break;
+		}
+	} while (opcion != 'c' && (opcion != 'a' || cuadra == false));
 
-
-/*
-	} while ( opcion != 'c' ||!this->cuadra(importeStock,importeRealizable,
-			importeDisponible, importeANC, importePC, importePNC,importePN));*/
 	this->escribir_ficBin();
 }

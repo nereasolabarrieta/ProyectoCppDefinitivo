@@ -9,13 +9,9 @@
 /**
  * Desde aqui se ejecuta el programa
  */
-int main (void)
-{
+int main(void) {
 	clsMenuPrincipal *a = new clsMenuPrincipal();
 	a->menu();
 	return 0;
 }
-
-
-
 

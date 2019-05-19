@@ -7,39 +7,33 @@
 
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
-namespace cliente
-{
-class Cliente
-{
-	private:
-		char *nom;
-		char *ape;
-		char *dni;
-		float acumulado;
-		int numClientes;
+namespace cliente {
+class Cliente {
+private:
+	char *nom;
+	char *ape;
+	char *dni;
+	float acumulado;
 
+public:
+	Cliente();
 
-	public:
-		Cliente();
+	~Cliente();
 
-		~Cliente();
+	char* getNom() const;
+	char* getApe() const;
+	char* getDni() const;
+	float getAcumulado() const;
 
-		char* getNom() const;
-		char* getApe() const;
-		char* getDni() const;
-		float getAcumulado()const;
-		int getNumClientes()const;
+	void setNom(char* nom);
+	void setApe(char* ape);
+	void setDni(char* dni);
+	void setAcumulado(float acumulado);
 
-		void setNom(char* nom);
-		void setApe(char* ape);
-		void setDni(char* dni);
-		void setAcumulado(float acumulado);
-		void setNumClientes(int num);
-
-		void escribirFic_bin_clientes(Cliente *c, int num);
-		void LeerFic_bin_clientes(Cliente *c);
-		void introducirCliente();
-		void imprimirCliente();
+	void escribirFic_bin_clientes(Cliente *c, int num);
+	void LeerFic_bin_clientes(Cliente *c);
+	void introducirCliente();
+	void imprimirCliente();
 
 };
 }

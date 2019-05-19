@@ -21,7 +21,7 @@ private:
 
 public:
 	Complemento();
-	~Complemento();
+	virtual ~Complemento();
 
 	int getStock() const;
 	void setStock(int stock);

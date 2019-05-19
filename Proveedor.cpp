@@ -11,41 +11,27 @@
 using namespace proveedor;
 using namespace std;
 
-Proveedor::Proveedor()
-{
-	this->nom = NULL ;
+Proveedor::Proveedor() {
+	this->nom = new char[30];
 	this->NIF = new char[9];
 	NIF = "*********";
-	this->numProveedores = 0;
 
 }
-Proveedor::~Proveedor()
-{
-	delete nom;
-	delete NIF;
+Proveedor::~Proveedor() {
+	delete[] nom;
+	delete[] NIF;
 }
-void Proveedor::setNom(char* nom)
-{
-	this->nom =nom;
+void Proveedor::setNom(char* nom) {
+	this->nom = nom;
 }
-char* Proveedor::getNom()
-{
+char* Proveedor::getNom() {
 	return this->nom;
 }
-void Proveedor::setNIF(char* NIF)
-{
+void Proveedor::setNIF(char* NIF) {
 	this->NIF = NIF;
 }
-char* Proveedor::getNIF()
-{
+char* Proveedor::getNIF() {
 	return this->NIF;
-}
-void Proveedor::setNumProveedores(int num)
-{
-	this->numProveedores =num;
-}
-int Proveedor::getNumProveedores() const {
-	return this->numProveedores;
 }
 
 /**
@@ -55,20 +41,16 @@ void Proveedor::escribirFic_bin_proveedores(Proveedor* p, int num_proveedores) {
 	FILE *f;
 	f = fopen("Proveedores.txt", "w");
 	fprintf(f, "%i\n", num_proveedores);
-	cout << num_proveedores << endl;
 	for (int i = 0; i < num_proveedores; i++) {
 
 		fprintf(f, "%i\n", strlen((p + i)->nom));
 		fprintf(f, "%s\n", (p + i)->nom);
-		cout << (p + i)->nom << endl;
 
 		fprintf(f, "%i\n", strlen((p + i)->NIF));
 		fprintf(f, "%s\n", (p + i)->NIF);
-		cout << (p + i)->NIF << endl;
 
 	}
 	fclose(f);
-
 
 }
 
@@ -87,7 +69,6 @@ void Proveedor::leerFic_bin_proveedores(Proveedor *p) {
 
 	for (int i = 0; i < num_proveedores; i++) {
 
-
 		fscanf(f, "%i", &len);
 		(p + i)->nom = new char[len];
 		fscanf(f, " %[^\n]s", (p + i)->nom);
@@ -96,19 +77,16 @@ void Proveedor::leerFic_bin_proveedores(Proveedor *p) {
 		(p + i)->NIF = new char[len];
 		fscanf(f, " %[^\n]s", (p + i)->NIF);
 
-
 	}
 	fclose(f);
-
 
 }
 /**
  * Metodo para imprimir Proveedor
  */
-void Proveedor::ImprimirProveedor()
-{
+void Proveedor::ImprimirProveedor() {
 
-	cout << "Nombre: " <<this->nom << endl;
-	cout << "NIF: " << this->NIF<< endl;
+	cout << "Nombre: " << this->nom << endl;
+	cout << "NIF: " << this->NIF << endl;
 	cout << endl;
 }

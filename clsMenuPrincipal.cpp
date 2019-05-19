@@ -5,8 +5,6 @@
  *      Author: ALUMNO
  */
 
-
-
 #include "Balance.h"
 #include "clsMenuPrincipal.h"
 #include "Proveedor.h"
@@ -49,29 +47,29 @@ void clsMenuPrincipal::menu(void) {
 	complementos = new Complemento[NUM_ARTIC];
 	textiles = new Textil[NUM_ARTIC];
 	a = "*********";
-	if (!nuestro_balance->existsFile("Balance.dat" )) {
+	if (!nuestro_balance->existsFile("Balance.dat")) {
 		nuestro_balance->introducir();
 
 	} else {
-		if (nuestro_balance->existsFile("Clientes.txt" ) ){
+		if (nuestro_balance->existsFile("Clientes.txt")) {
 			cltes->LeerFic_bin_clientes(cltes);
 		}
-		if (nuestro_balance->existsFile("Proveedores.txt") ){
+		if (nuestro_balance->existsFile("Proveedores.txt")) {
 			provs->leerFic_bin_proveedores(provs);
 		}
-		if (nuestro_balance->existsFile("Complementos.txt" )) {
+		if (nuestro_balance->existsFile("Complementos.txt")) {
 			complementos->LeerFic_bin_complementos(complementos);
 		}
-		if (nuestro_balance->existsFile("Textiles.txt" )) {
+		if (nuestro_balance->existsFile("Textiles.txt")) {
 			textiles->LeerFic_bin_textil(textiles);
 		}
-		if (nuestro_balance->existsFile("CuentaPyG.dat" )) {
-					cuentaPyG->leerFichero();
+		if (nuestro_balance->existsFile("CuentaPyG.dat")) {
+			cuentaPyG->leerFichero();
 		}
 		nuestro_balance->leerFichero();
 	}
 
-	char opcion ;
+	char opcion;
 
 	do {
 
@@ -91,7 +89,6 @@ void clsMenuPrincipal::menu(void) {
 
 		cin >> opcion;
 
-
 		switch (opcion) {
 		case '1':
 
@@ -101,7 +98,7 @@ void clsMenuPrincipal::menu(void) {
 			anyadirProveedor();
 			break;
 		case '3':
-			ContabilizarVenta() ;
+			ContabilizarVenta();
 			break;
 		case '4': {
 			compra();
@@ -113,40 +110,42 @@ void clsMenuPrincipal::menu(void) {
 			cuentaPyG->imprimirCuentaPyG();
 			break;
 		case '6':
-				imprimirTodosClientes();
+			imprimirTodosClientes();
 
 			break;
-		case '7': imprimirTodosProveedores();
+		case '7':
+			imprimirTodosProveedores();
 			break;
-		case '8': imprimirTodosComplementos();
+		case '8':
+			imprimirTodosComplementos();
 			break;
-		case '9':imprimirTodosTextiles();
+		case '9':
+			imprimirTodosTextiles();
 			break;
 		case '*':
 			nuestro_balance->modificarBalance();
 			break;
 		case '0':
-
+			cltes->~Cliente();
+			provs->~Proveedor();
+			complementos->~Complemento();
+			textiles->~Textil();
 			cout << "Agur" << endl;
 			break;
 		default:
 			cout << "Esa opcion no esta disponible" << endl;
 
-	}
-	}while (opcion != '0');
-
+		}
+	} while (opcion != '0');
 
 }
 /**
  * Pide los datos para anyadir un nuevo cliente
  */
-void clsMenuPrincipal::anyadirCliente()
-{
+void clsMenuPrincipal::anyadirCliente() {
 	char *dni = new char[10];
 	char *nom = new char[30];
 	char *ape = new char[30];
-
-
 
 	cin.ignore();
 	cout << "Introduce NOMBRE: ";
@@ -161,47 +160,38 @@ void clsMenuPrincipal::anyadirCliente()
 	cin.getline(dni, 10);
 	cout << endl;
 
+	if (!ComprobarClte(dni)) {
 
-	if(!ComprobarClte(dni))
-	{
+		for (int i = 0; i < NUM_CLIENTES; i++) {
 
+			if (((strcmp((cltes + i)->getDni(), a)) == 0)) {
 
-		for( int i =0; i<NUM_CLIENTES;i++)
-		{
-
-
-		if(((strcmp((cltes+i)->getDni(),a))==0))
-			{
-
-				(cltes+i)->setNom(nom);
-				(cltes+i)->setApe(ape);
-				(cltes+i)->setDni(dni);
-				cltes->escribirFic_bin_clientes(cltes, i+1);
+				(cltes + i)->setNom(nom);
+				(cltes + i)->setApe(ape);
+				(cltes + i)->setDni(dni);
+				cltes->escribirFic_bin_clientes(cltes, i + 1);
 				return;
 			}
 
-
-
 		}
 	}
-
+	delete[] nom;
+	delete[] dni;
+	delete[] ape;
 
 }
 
 /**
  * Metodo para comprobar si existe el cliente
  */
-bool clsMenuPrincipal::ComprobarClte(char *dni)
-{
+bool clsMenuPrincipal::ComprobarClte(char *dni) {
 
-	for ( int i =0; i<NUM_CLIENTES; i++)
-	{
+	for (int i = 0; i < NUM_CLIENTES; i++) {
 
-		if ((strcmp(dni,(cltes+i)->getDni())==0))
-				{
-			 	 	 cout<<"Este cliente ya esta registrado"<<endl<<endl;
-					return true;
-				}
+		if ((strcmp(dni, (cltes + i)->getDni()) == 0)) {
+			cout << "Este cliente ya esta registrado" << endl << endl;
+			return true;
+		}
 
 	}
 
@@ -212,30 +202,27 @@ bool clsMenuPrincipal::ComprobarClte(char *dni)
  * Metodo para imprimir todos los clientes
  */
 void clsMenuPrincipal::imprimirTodosClientes() {
-	bool existen_clientes=false;
+	bool existen_clientes = false;
 
 	for (int i = 0; i < NUM_CLIENTES; i++) {
 
-		if(!((strcmp((cltes+i)->getDni(),a))==0))
-			{
+		if (!((strcmp((cltes + i)->getDni(), a)) == 0)) {
 
-				(cltes+i)->imprimirCliente();
-				existen_clientes=true;
+			(cltes + i)->imprimirCliente();
+			existen_clientes = true;
 
-
-			}
+		}
 	}
-	if(!existen_clientes){
-		cout<<"No exiten clientes dados de alta"<<endl;
-		cout<<endl;
+	if (!existen_clientes) {
+		cout << "No exiten clientes dados de alta" << endl;
+		cout << endl;
 	}
 }
 
 /**
  * Pide los datos para anyadir un nuevo proveedor y llama al metodo ComprobarProv para comprobar si existe.
  */
-void clsMenuPrincipal::anyadirProveedor()
-{
+void clsMenuPrincipal::anyadirProveedor() {
 	char *NIF = new char[10];
 	char *nom = new char[30];
 
@@ -256,31 +243,29 @@ void clsMenuPrincipal::anyadirProveedor()
 
 				(provs + i)->setNom(nom);
 				(provs + i)->setNIF(NIF);
-				provs->escribirFic_bin_proveedores(provs, i+1);
+				provs->escribirFic_bin_proveedores(provs, i + 1);
 				return;
 
 			}
 
 		}
 	}
-
+	delete[] NIF;
+	delete[] nom;
 
 }
 
 /**
  * Metodo para comprobar si existe el proveedor introducido por el usuario.
  */
-bool clsMenuPrincipal::ComprobarProv(char *NIF)
-{
+bool clsMenuPrincipal::ComprobarProv(char *NIF) {
 
-	for ( int i =0; i<NUM_PROV; i++)
-	{
+	for (int i = 0; i < NUM_PROV; i++) {
 
-		if ((strcmp(NIF,(provs+i)->getNIF())==0))
-				{
-			 cout<<"Este proveedor ya esta registrado"<<endl<<endl;
-					return true;
-				}
+		if ((strcmp(NIF, (provs + i)->getNIF()) == 0)) {
+			cout << "Este proveedor ya esta registrado" << endl << endl;
+			return true;
+		}
 	}
 
 	return false;
@@ -291,15 +276,14 @@ bool clsMenuPrincipal::ComprobarProv(char *NIF)
 void clsMenuPrincipal::imprimirTodosProveedores() {
 	for (int i = 0; i < NUM_PROV; i++) {
 
-			if(!((strcmp((provs+i)->getNIF(),a))==0))
-				{
+		if (!((strcmp((provs + i)->getNIF(), a)) == 0)) {
 
-					(provs+i)->ImprimirProveedor();
+			(provs + i)->ImprimirProveedor();
 
-					cout << endl;
+			cout << endl;
 
-				}
 		}
+	}
 }
 
 /**
@@ -329,7 +313,7 @@ void clsMenuPrincipal::compra() {
 		default:
 			cout << "Esa opcion no existe." << endl;
 		}
-	} while (opcion != 1 && opcion !=2 && opcion!=0);
+	} while (opcion != 1 && opcion != 2 && opcion != 0);
 
 }
 
@@ -343,7 +327,6 @@ void clsMenuPrincipal::anyadirComplemento() {
 	cin.ignore();
 	cout << "Introduce el codigo: " << endl;
 	cin.getline(codigo, 10);
-	cout << codigo << endl;
 	cout << endl;
 
 	if (comprobar_complemento(codigo)) {
@@ -364,18 +347,13 @@ void clsMenuPrincipal::anyadirComplemento() {
 				cin >> stock;
 				cout << endl;
 				cin.ignore();
-				cout << codigo << endl;
 				(complementos + i)->setCodigo(codigo);
-				cout << (complementos + i)->getCodigo() << endl;
 				(complementos + i)->setNombre(nom);
 				(complementos + i)->setPrecio(precio);
 				(complementos + i)->setStock(stock);
-				cout << "0" << endl;
 				complementos->escribir_fic_bin_complementos(complementos,
 						i + 1);
-				cout << "1" << endl;
 				Contabilizar_complemento((complementos + i), stock);
-				cout << "2" << endl;
 
 				break;
 			}
@@ -383,7 +361,7 @@ void clsMenuPrincipal::anyadirComplemento() {
 
 	} else {
 		for (int i = 0; i < NUM_ARTIC; i++) {
-			if (strcmp(	(complementos + i)->getCodigo(), codigo) == 0) {
+			if (strcmp((complementos + i)->getCodigo(), codigo) == 0) {
 				cout << "El articulo que ha comprado es el siguiente:" << endl;
 				(complementos + i)->Imprimir();
 				cout << "Cuantos articulos ha comprado?" << endl;
@@ -391,68 +369,75 @@ void clsMenuPrincipal::anyadirComplemento() {
 				int compra;
 				cin >> compra;
 				cout << endl;
-				(complementos + i)->setStock((complementos + i)->getStock()+compra);
+				(complementos + i)->setStock(
+						(complementos + i)->getStock() + compra);
 
-				complementos->escribir_fic_bin_complementos(complementos, i + 1);
+				complementos->escribir_fic_bin_complementos(complementos,
+						i + 1);
 				Contabilizar_complemento((complementos + i), compra);
 
 			}
 
 		}
 	}
+	delete[] codigo;
+	delete[] nom;
 }
 void clsMenuPrincipal::ContabilizarVenta() {
 	bool existe = false;
 	char *dni = new char[10];
 	do {
-		cout <<"Introduce el DNI del cliente que ha realizado la compra:" << endl;
+		cout << "Introduce el DNI del cliente que ha realizado la compra:"
+				<< endl;
 
 		cin >> dni;
 		cout << endl;
 
 		for (int i = 0; i < NUM_CLIENTES; i++) {
 			if (strcmp((cltes + i)->getDni(), dni) == 0) {
-				cout <<
-						"El cliente correspondiente a este DNI es el siguiente: " << endl;
+				cout
+						<< "El cliente correspondiente a este DNI es el siguiente: "
+						<< endl;
 				(cltes + i)->imprimirCliente();
 				existe = true;
 				char opcion;
 				do {
 
-					cout <<"Que tipo de venta desea contabilizar?" << endl;
-					cout <<"1-Complemento" << endl;
-					cout <<"2-Textil" << endl;
-					cout <<"0-Salir" << endl;
+					cout << "Que tipo de venta desea contabilizar?" << endl;
+					cout << "1-Complemento" << endl;
+					cout << "2-Textil" << endl;
+					cout << "0-Salir" << endl;
 					cin.ignore();
 					cin >> opcion;
 					cout << endl;
 					switch (opcion) {
 					case '1':
-						VentaComplemento( NUM_ARTIC,(cltes + i));
-						cltes->escribirFic_bin_clientes(cltes,i + 1);
+						VentaComplemento(NUM_ARTIC, (cltes + i));
+						cltes->escribirFic_bin_clientes(cltes, i + 1);
 						break;
 					case '2':
 						VentaTextil(NUM_ARTIC, (cltes + i));
-						cltes->escribirFic_bin_clientes(cltes,i + 1);
+						cltes->escribirFic_bin_clientes(cltes, i + 1);
 						break;
 					case '0':
-						cout <<"Salir" << endl;
+						cout << "Salir" << endl;
 						break;
 					default:
-						cout <<"Esa opcion no existe." << endl;
+						cout << "Esa opcion no existe." << endl;
 					}
 				} while (!(opcion == '1' || opcion == '2' || opcion == '0'));
 				break;
 			}
 		}
 		if (existe == false) {
-			cout <<"No existe ningun cliente con ese DNI" << endl;
+			cout << "No existe ningun cliente con ese DNI" << endl;
 		}
 
 	} while (existe == false);
+	delete[] dni;
 
 }
-void clsMenuPrincipal::VentaTextil( int tamanyo,Cliente * cliente) {
+void clsMenuPrincipal::VentaTextil(int tamanyo, Cliente * cliente) {
 	char *codigo = new char[10];
 	int cantidadXS;
 	int cantidadS;
@@ -461,14 +446,14 @@ void clsMenuPrincipal::VentaTextil( int tamanyo,Cliente * cliente) {
 	bool disponible = false;
 	int TOTAL;
 	do {
-		cout << "Introduce el codigo del articulo:"<< endl;
+		cout << "Introduce el codigo del articulo:" << endl;
 
 		cin >> codigo;
 		cout << endl;
 
 		if (comprobar_textil(codigo)) {
 
-			cout << "No existe ningun complemento con ese codigo."<< endl;
+			cout << "No existe ningun complemento con ese codigo." << endl;
 
 		} else {
 
@@ -476,63 +461,78 @@ void clsMenuPrincipal::VentaTextil( int tamanyo,Cliente * cliente) {
 
 				if (strcmp((textiles + i)->getCodigo(), codigo) == 0) {
 
-					cout << "El articulo que ha vendido es el siguiente: "<< endl;
+					cout << "El articulo que ha vendido es el siguiente: "
+							<< endl;
 
 					(textiles + i)->Imprimir();
 
 					do {
-						cout << "Cuantos articulos de talla XS ha vendido?"<< endl;
+						cout << "Cuantos articulos de talla XS ha vendido?"
+								<< endl;
 						cin >> cantidadXS;
 						cout << endl;
 
-						if (((textiles+i)->getStockXS()) < cantidadXS) {
-							cout <<
-									"No tiene suficiente stock para realizar esa venta."<< endl;
+						if (((textiles + i)->getStockXS()) < cantidadXS) {
+							cout
+									<< "No tiene suficiente stock para realizar esa venta."
+									<< endl;
 							disponible = false;
 						} else {
-							(textiles + i)->setStockXS((textiles + i)->getStockXS() - cantidadXS);
+							(textiles + i)->setStockXS(
+									(textiles + i)->getStockXS() - cantidadXS);
 							disponible = true;
 
 						}
 					} while (disponible == false);
 					do {
-						cout << "Cuantos articulos de talla S ha vendido?"<< endl;
-						cin >>cantidadS;
+						cout << "Cuantos articulos de talla S ha vendido?"
+								<< endl;
+						cin >> cantidadS;
 						cout << endl;
 
-						if (((textiles+i)->getStockS()) < cantidadS) {
-							cout << "No tiene suficiente stock para realizar esa venta."<< endl;
+						if (((textiles + i)->getStockS()) < cantidadS) {
+							cout
+									<< "No tiene suficiente stock para realizar esa venta."
+									<< endl;
 							disponible = false;
 						} else {
-							(textiles + i)->setStockS((textiles + i)->getStockS() - cantidadS);
+							(textiles + i)->setStockS(
+									(textiles + i)->getStockS() - cantidadS);
 							disponible = true;
 						}
 					} while (disponible == false);
 					do {
-						cout << "Cuantos articulos de talla M ha vendido?"<< endl;
+						cout << "Cuantos articulos de talla M ha vendido?"
+								<< endl;
 						cin >> cantidadM;
 						cout << endl;
 
-						if (((textiles+i)->getStockM()) < cantidadM) {
-							cout <<
-									"No tiene suficiente stock para realizar esa venta."<< endl;
+						if (((textiles + i)->getStockM()) < cantidadM) {
+							cout
+									<< "No tiene suficiente stock para realizar esa venta."
+									<< endl;
 							disponible = false;
 						} else {
-							(textiles + i)->setStockM((textiles + i)->getStockM() - cantidadM);
+							(textiles + i)->setStockM(
+									(textiles + i)->getStockM() - cantidadM);
 							disponible = true;
 
 						}
 					} while (disponible == false);
 					do {
-						cout << "Cuantos articulos de talla L ha vendido?"<< endl;
+						cout << "Cuantos articulos de talla L ha vendido?"
+								<< endl;
 						cin >> cantidadL;
 						cout << endl;
 
-						if (((textiles+i)->getStockL()) < cantidadL) {
-							cout << "No tiene suficiente stock para realizar esa venta."<< endl;
+						if (((textiles + i)->getStockL()) < cantidadL) {
+							cout
+									<< "No tiene suficiente stock para realizar esa venta."
+									<< endl;
 							disponible = false;
 						} else {
-							(textiles + i)->setStockL((textiles + i)->getStockL() - cantidadL);
+							(textiles + i)->setStockL(
+									(textiles + i)->getStockL() - cantidadL);
 							disponible = true;
 
 						}
@@ -548,16 +548,17 @@ void clsMenuPrincipal::VentaTextil( int tamanyo,Cliente * cliente) {
 				}
 
 			}
-			cout << "La venta se ha guardado correctamente"<< endl;
+			cout << "La venta se ha guardado correctamente" << endl;
 		}
 
 	} while (comprobar_textil(codigo));
+	delete[] codigo;
 }
 void clsMenuPrincipal::Contabilizar_Ventatextil(Textil *textil, int cantidad) {
 	float precio = textil->getPrecio();
 	float cuantia = cantidad * precio;
-	(nuestro_balance->setDisponible(nuestro_balance->getDisponible()+cuantia)) ;
-	(nuestro_balance->setStock(nuestro_balance->getStock() -cuantia)) ;
+	(nuestro_balance->setDisponible(nuestro_balance->getDisponible() + cuantia));
+	(nuestro_balance->setStock(nuestro_balance->getStock() - cuantia));
 	cuentaPyG->setIngresos(cuantia);
 	cuentaPyG->escribir_fic();
 	nuestro_balance->escribir_ficBin();
@@ -577,7 +578,7 @@ bool clsMenuPrincipal::comprobar_complemento(char * codigo) {
 	}
 	return true;
 }
-void clsMenuPrincipal::VentaComplemento( int tamanyo,Cliente * cliente) {
+void clsMenuPrincipal::VentaComplemento(int tamanyo, Cliente * cliente) {
 
 	char *codigo = new char[10];
 	int cantidad;
@@ -589,7 +590,7 @@ void clsMenuPrincipal::VentaComplemento( int tamanyo,Cliente * cliente) {
 
 		if (comprobar_complemento(codigo)) {
 
-			cout <<"No existe ningun complemento con ese codigo." << endl;
+			cout << "No existe ningun complemento con ese codigo." << endl;
 
 		} else {
 
@@ -597,37 +598,42 @@ void clsMenuPrincipal::VentaComplemento( int tamanyo,Cliente * cliente) {
 
 				if (strcmp((complementos + i)->getCodigo(), codigo) == 0) {
 
-					cout <<"El articulo que ha vendido es el siguiente: " << endl;
+					cout << "El articulo que ha vendido es el siguiente: "
+							<< endl;
 
 					(complementos + i)->Imprimir();
 
 					do {
-						cout <<"Cuantos articulos ha vendido?" << endl;
+						cout << "Cuantos articulos ha vendido?" << endl;
 						cin >> cantidad;
 
-						if (((complementos+i)->getStock()) < cantidad) {
-							cout << "No tiene suficiente stock para realizar esa venta." << endl;
+						if (((complementos + i)->getStock()) < cantidad) {
+							cout
+									<< "No tiene suficiente stock para realizar esa venta."
+									<< endl;
 							disponible = false;
 						} else {
-							(complementos + i)->setStock((complementos + i)->getStock()-cantidad);
-							cout << "1" << endl;
-							complementos->escribir_fic_bin_complementos(complementos, i + 1);
-							cout << "2" << endl;
-							Contabilizar_Ventacomplemento((complementos + i), cantidad);
-							cout << "3" << endl;
+							(complementos + i)->setStock(
+									(complementos + i)->getStock() - cantidad);
+							complementos->escribir_fic_bin_complementos(
+									complementos, i + 1);
+							Contabilizar_Ventacomplemento((complementos + i),
+									cantidad);
 							disponible = true;
 						}
-						complementos->enviarImporte((complementos + i)->getPrecio(),
-								cantidad, cliente);
+						complementos->enviarImporte(
+								(complementos + i)->getPrecio(), cantidad,
+								cliente);
 					} while (disponible == false);
 
 				}
 
 			}
-			cout <<"La venta se ha guardado correctamente" << endl;
+			cout << "La venta se ha guardado correctamente" << endl;
 		}
 
 	} while (comprobar_complemento(codigo));
+	delete[] codigo;
 
 }
 
@@ -638,14 +644,13 @@ void clsMenuPrincipal::imprimirTodosComplementos() {
 
 	for (int i = 0; i < NUM_ARTIC; i++) {
 
-		if(!((strcmp((complementos+i)->getCodigo(),a))==0))
-			{
+		if (!((strcmp((complementos + i)->getCodigo(), a)) == 0)) {
 
-				(complementos+i)->Imprimir();
+			(complementos + i)->Imprimir();
 
-				cout << endl;
+			cout << endl;
 
-			}
+		}
 	}
 }
 /**
@@ -657,8 +662,8 @@ void clsMenuPrincipal::anyadirTextil() {
 	char *color = new char[20];
 
 	cin.ignore();
-	cout <<"Introduce el codigo:"<<endl;
-	cin.getline(codigo,10);
+	cout << "Introduce el codigo:" << endl;
+	cin.getline(codigo, 10);
 	cout << endl;
 
 	if (comprobar_textil(codigo)) {
@@ -666,50 +671,44 @@ void clsMenuPrincipal::anyadirTextil() {
 
 			if (strcmp((textiles + i)->getCodigo(), a) == 0) {
 
-				cout <<"Introduce el nombre:"<<endl;
-				cin.getline(nom,30);
+				cout << "Introduce el nombre:" << endl;
+				cin.getline(nom, 30);
 				cout << endl;
 
 				float precio;
-				cout <<"Introduce el precio:"<<endl;
-				cin >>precio;
+				cout << "Introduce el precio:" << endl;
+				cin >> precio;
 				cout << endl;
 
-
 				int stockXS;
-				cout <<"Introduce stock de talla XS"<<endl;
-				cin >>stockXS;
+				cout << "Introduce stock de talla XS" << endl;
+				cin >> stockXS;
 				cout << endl;
 
 				int stockS;
-				cout <<"Introduce stock de talla S"<<endl;
-				cin >>stockS;
+				cout << "Introduce stock de talla S" << endl;
+				cin >> stockS;
 				cout << endl;
 
 				int stockM;
-				cout <<"Introduce stock de talla M"<<endl;
-				cin >>stockM;
+				cout << "Introduce stock de talla M" << endl;
+				cin >> stockM;
 				cout << endl;
 
 				int stockL;
-				cout <<"Introduce stock de talla L"<<endl;
-				cin >>stockL;
+				cout << "Introduce stock de talla L" << endl;
+				cin >> stockL;
 				cout << endl;
 
 				cin.ignore();
-				cout <<"Introduce color del articulo"<<endl;
-				cin.getline(color,20);
-				cout << color << endl;
+				cout << "Introduce color del articulo" << endl;
+				cin.getline(color, 20);
 				cout << endl;
-				cout <<"hola0" << endl;
+
 				(textiles + i)->setCodigo(codigo);
-				cout <<"hola1" << endl;
 				(textiles + i)->setNombre(nom);
-				cout <<"hola2" << endl;
 				(textiles + i)->setPrecio(precio);
-				cout <<"hola3" << endl;
 				(textiles + i)->setColor(color);
-				cout <<"hola4" << endl;
 				(textiles + i)->setStockXS(stockXS);
 				(textiles + i)->setStockS(stockS);
 				(textiles + i)->setStockM(stockM);
@@ -726,34 +725,34 @@ void clsMenuPrincipal::anyadirTextil() {
 	} else {
 		for (int i = 0; i < NUM_ARTIC; i++) {
 			if (strcmp((*(textiles + i)).getCodigo(), codigo) == 0) {
-				cout <<"El articulo que ha comprado es el siguiente: "<<endl;
+				cout << "El articulo que ha comprado es el siguiente: " << endl;
 				(textiles + i)->Imprimir();
 				int compraXS;
 				int compraS;
 				int compraM;
 				int compraL;
 
-				cout <<"Cuantos articulos ha comprado de la talla XS?"<<endl;
-				cin >>compraXS;
+				cout << "Cuantos articulos ha comprado de la talla XS?" << endl;
+				cin >> compraXS;
 				cout << endl;
 
-				cout <<"Y de la talla S?"<<endl;
+				cout << "Y de la talla S?" << endl;
 				fflush(stdin);
-				cin >>compraS;
+				cin >> compraS;
 				cout << endl;
 
-				cout <<"Y de la talla M?"<<endl;
-				cin >>compraM;
+				cout << "Y de la talla M?" << endl;
+				cin >> compraM;
 				cout << endl;
 
-				cout <<"Y de la talla L?"<<endl;
-				cin >>compraL;
+				cout << "Y de la talla L?" << endl;
+				cin >> compraL;
 				cout << endl;
 
-				(textiles + i)->setStockXS((textiles + i)->getStockXS()+compraXS) ;
-				(textiles + i)->setStockS((textiles + i)->getStockS()+compraS) ;
-				(textiles + i)->setStockM((textiles + i)->getStockM()+compraM) ;
-				(textiles + i)->setStockL((textiles + i)->getStockL()+compraL) ;
+				(textiles + i)->setStockXS((textiles + i)->getStockXS() + compraXS);
+				(textiles + i)->setStockS((textiles + i)->getStockS() + compraS);
+				(textiles + i)->setStockM((textiles + i)->getStockM() + compraM);
+				(textiles + i)->setStockL((textiles + i)->getStockL() + compraL);
 				textiles->escribir_fic_bin_textil(textiles, i + 1);
 
 				int compra = compraXS + compraS + compraM + compraL;
@@ -763,11 +762,14 @@ void clsMenuPrincipal::anyadirTextil() {
 
 		}
 	}
+	delete[] nom;
+	delete[] codigo;
+	delete[] color;
 }
 /**
  * Metodo para comprobar si existe el textil introducido
  */
-bool clsMenuPrincipal::comprobar_textil( char * codigo) {
+bool clsMenuPrincipal::comprobar_textil(char * codigo) {
 
 	bool unico = true;
 	for (int i = 0; i < NUM_ARTIC; i++) {
@@ -787,17 +789,17 @@ void clsMenuPrincipal::imprimirTodosTextiles() {
 
 	for (int i = 0; i < NUM_ARTIC; i++) {
 
-		if(!((strcmp((textiles+i)->getCodigo(),a))==0))
-			{
+		if (!((strcmp((textiles + i)->getCodigo(), a)) == 0)) {
 
-				(textiles+i)->Imprimir();
+			(textiles + i)->Imprimir();
 
-				cout << endl;
+			cout << endl;
 
-			}
+		}
 	}
 }
-void clsMenuPrincipal::Contabilizar_complemento(Complemento *complemento, int cantidad) {
+void clsMenuPrincipal::Contabilizar_complemento(Complemento *complemento,
+		int cantidad) {
 
 	float precio = complemento->getPrecio();
 	float cuantia = cantidad * precio;
@@ -807,11 +809,12 @@ void clsMenuPrincipal::Contabilizar_complemento(Complemento *complemento, int ca
 	cuentaPyG->escribir_fic();
 	nuestro_balance->escribir_ficBin();
 }
-void clsMenuPrincipal::Contabilizar_Ventacomplemento(Complemento *complemento, int cantidad) {
+void clsMenuPrincipal::Contabilizar_Ventacomplemento(Complemento *complemento,
+		int cantidad) {
 
 	float precio = complemento->getPrecio();
 	float cuantia = cantidad * precio;
-	(nuestro_balance->setDisponible(nuestro_balance->getDisponible()+cuantia)) ;
+	(nuestro_balance->setDisponible(nuestro_balance->getDisponible() + cuantia));
 	(nuestro_balance->setStock(nuestro_balance->getStock() - cuantia));
 	cuentaPyG->setIngresos(cuantia);
 	cuentaPyG->escribir_fic();

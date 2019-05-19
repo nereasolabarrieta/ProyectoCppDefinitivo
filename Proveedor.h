@@ -7,15 +7,11 @@
 
 #ifndef PROVEEDOR_H_
 #define PROVEEDOR_H_
-namespace proveedor
-{
-class Proveedor
-{
+namespace proveedor {
+class Proveedor {
 private:
 	char* nom;
 	char* NIF;
-	int numProveedores;
-
 
 public:
 	Proveedor();
@@ -23,16 +19,13 @@ public:
 
 	char* getNom();
 	char* getNIF();
-	int getNumProveedores()const;
 
 	void setNom(char* nom);
 	void setNIF(char* NIF);
 
-	void setNumProveedores(int num);
 	void escribirFic_bin_proveedores(Proveedor* p, int num_proveedores);
 	void leerFic_bin_proveedores(Proveedor *p);
 	void ImprimirProveedor();
-
 
 };
 }

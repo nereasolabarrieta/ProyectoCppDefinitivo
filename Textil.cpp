@@ -10,70 +10,54 @@ using namespace textil;
 #include <string.h>
 using namespace std;
 
-Textil::Textil():Articulo()
-{
-	this->stockXS =0;
-	this->stockS =0;
-	this->stockM =0;
-	this->stockL =0;
+Textil::Textil() :
+		Articulo() {
+	this->stockXS = 0;
+	this->stockS = 0;
+	this->stockM = 0;
+	this->stockL = 0;
 	this->color = NULL;
 
 }
-Textil::~Textil()
-{
+Textil::~Textil() {
 	delete[] color;
 
 }
-void Textil::setStockL(int stockL)
-{
-	this->stockL =stockL;
+void Textil::setStockL(int stockL) {
+	this->stockL = stockL;
 }
-int Textil::getStockL() const
-{
+int Textil::getStockL() const {
 	return this->stockL;
 }
-void Textil::setStockM(int stockM)
-{
-	this->stockM =stockM;
+void Textil::setStockM(int stockM) {
+	this->stockM = stockM;
 }
-int Textil::getStockM() const
-{
+int Textil::getStockM() const {
 	return this->stockM;
 }
-void Textil::setStockXS(int stockXS)
-{
-	this->stockXS =stockXS;
+void Textil::setStockXS(int stockXS) {
+	this->stockXS = stockXS;
 }
-int Textil::getStockXS() const
-{
+int Textil::getStockXS() const {
 	return this->stockXS;
 }
-void Textil::setStockS(int stockS)
-{
-	this->stockS =stockS;
+void Textil::setStockS(int stockS) {
+	this->stockS = stockS;
 }
-int Textil::getStockS() const
-{
+int Textil::getStockS() const {
 	return this->stockS;
 }
-void Textil::setColor(char* color)
-{
-	cout<<"el color que estoy copiando: "<<color<<endl;
-	this->color = new char [strlen(color)];
+void Textil::setColor(char* color) {
+	this->color = new char[strlen(color)];
 	this->color = color;
-//	strcpy(this->color, color);
-	cout<<"el color copiado es: "<<this->color<<endl;
 }
-char* Textil::getColor() const
-{
+char* Textil::getColor() const {
 	return this->color;
 }
-void Textil::escribir_fic_bin_textil(Textil* t, int num_textil)
-{
+void Textil::escribir_fic_bin_textil(Textil* t, int num_textil) {
 	FILE *f;
 	f = fopen("Textiles.txt", "w");
 	fprintf(f, "%i\n", num_textil);
-	cout << num_textil << endl;
 	for (int i = 0; i < num_textil; i++) {
 		fprintf(f, "%i\n", (strlen((t + i)->getCodigo())));
 		fprintf(f, "%s\n", (t + i)->getCodigo());
@@ -89,20 +73,19 @@ void Textil::escribir_fic_bin_textil(Textil* t, int num_textil)
 		fprintf(f, "%i\n", strlen((t + i)->color));
 		fprintf(f, "%s\n", (t + i)->color);
 
-
 	}
 	fclose(f);
 
 }
-void Textil::LeerFic_bin_textil(Textil* t)
-{
+void Textil::LeerFic_bin_textil(Textil* t) {
 	FILE *f;
 	f = fopen("Textiles.txt", "r");
-	int num_textiles= 0;
+	int num_textiles = 0;
 
 	fscanf(f, " %i", &num_textiles);
 	char *nom;
 	char *codigo;
+	char *color;
 	int len = 0;
 	float precio = 0.0;
 
@@ -129,25 +112,25 @@ void Textil::LeerFic_bin_textil(Textil* t)
 		fscanf(f, "%i", &len);
 
 		(t + i)->color = new char[len];
-		char *color =new char[len];
+		color = new char[len];
 
 		fscanf(f, "%s", color);
-		strcpy((t+i)->color ,color);
-		cout << "el color es :" << (t+i)->color << endl;
+		strcpy((t + i)->color, color);
 	}
 	fclose(f);
-
+	delete color;
+	delete nom;
+	delete codigo;
 }
 /**
  * Metodo para imprimir textil
  */
-void Textil::Imprimir()
-{
+void Textil::Imprimir() {
 	Articulo::Imprimir();
-	cout << "Color: " << this->color<< endl;
+	cout << "Color: " << this->color << endl;
 	cout << "Stock XS: " << this->stockXS << endl;
 	cout << "Stock S: " << this->stockS << endl;
 	cout << "Stock M: " << this->stockM << endl;
 	cout << "Stock L: " << this->stockL << endl;
-	cout <<endl;
+	cout << endl;
 }

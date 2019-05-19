@@ -7,20 +7,18 @@
 
 #ifndef BALANCE_H_
 #define BALANCE_H_
-namespace balance
-{
-class Balance
-{
-	private:
-		float importeStock;
-		float importeRealizable;
-		float importeDisponible;
-		float importeANC;
-		float importePC;
-		float importePNC;
-		float importePN;
+namespace balance {
+class Balance {
+private:
+	float importeStock;
+	float importeRealizable;
+	float importeDisponible;
+	float importeANC;
+	float importePC;
+	float importePNC;
+	float importePN;
 
-	public:
+public:
 	Balance();
 
 	float getStock() const;
@@ -39,18 +37,19 @@ class Balance
 	void setPNC(float valor);
 	void setPN(float valor);
 
+	void introducir();
+	bool existsFile(char*);
+	void leerFichero();
+	void escribir_ficBin();
+	bool cuadra();
+	bool cuadra(float importeStock, float importeRealizable,
+			float importeDisponible, float importeANC, float importePC,
+			float importePNC, float importePN);
+	void calcularRatios();
+	void imprimirBalance();
+	void modificarBalance();
 
-		void introducir();
-		bool existsFile(char*);
-		void leerFichero();
-		void escribir_ficBin();
-		bool cuadra();
-		bool cuadra(float importeStock,float importeRealizable, float importeDisponible, float importeANC, float importePC, float importePNC,float importePN);
-		void calcularRatios();
-		void imprimirBalance();
-		void modificarBalance();
-
-	};
+};
 }
 
 #endif /* BALANCE_H_ */

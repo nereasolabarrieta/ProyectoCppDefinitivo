@@ -22,7 +22,6 @@ Articulo::Articulo()
 }
 Articulo::~Articulo()
 {
-	cout<<"estoy borrando codigos y nombre"<<endl;
 	delete[] codigo;
 	delete[] nombre;
 }
