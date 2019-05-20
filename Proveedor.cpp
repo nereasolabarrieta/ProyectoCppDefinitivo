@@ -15,7 +15,7 @@ Proveedor::Proveedor() {
 	this->nom = new char[30];
 	this->NIF = new char[9];
 	char * NIF_vacio="*********";
-	strcpy(this->NIF , NIF_vacio);
+	this->NIF = NIF_vacio;
 
 }
 Proveedor::~Proveedor() {
