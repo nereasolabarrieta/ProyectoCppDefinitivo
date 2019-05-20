@@ -14,10 +14,19 @@ using namespace std;
 Proveedor::Proveedor() {
 	this->nom = new char[30];
 	this->NIF = new char[9];
-	NIF = "*********";
+	NIF[0]= '*';
+	NIF[1]= '*';
+	NIF[2]= '*';
+	NIF[3]= '*';
+	NIF[4]= '*';
+	NIF[5]= '*';
+	NIF[6]= '*';
+	NIF[7]= '*';
+	NIF[8]= '*';
 
 }
 Proveedor::~Proveedor() {
+
 	delete[] nom;
 	delete[] NIF;
 }

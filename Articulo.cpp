@@ -15,7 +15,16 @@ using namespace std;
 Articulo::Articulo()
 {
 	this->codigo= new char[9];
-	codigo = "*********";
+	codigo[0]= '*';
+	codigo[1]= '*';
+	codigo[2]= '*';
+	codigo[3]= '*';
+	codigo[4]= '*';
+	codigo[5]= '*';
+	codigo[6]= '*';
+	codigo[7]= '*';
+	codigo[8]= '*';
+
 	this->nombre= new char[30];
 	this->precio = 0.0;
 

@@ -127,6 +127,11 @@ void clsMenuPrincipal::menu(void) {
 			break;
 		case '0':
 
+			delete[]cltes;
+			delete[]provs;
+			delete[]textiles;
+			delete[]complementos;
+
 			cout << "Agur" << endl;
 			break;
 		default:
@@ -373,8 +378,8 @@ void clsMenuPrincipal::anyadirComplemento() {
 
 		}
 	}
-	delete codigo;
-	delete nom;
+	delete[] codigo;
+	delete[] nom;
 }
 void clsMenuPrincipal::ContabilizarVenta() {
 	bool existe = false;
@@ -427,7 +432,7 @@ void clsMenuPrincipal::ContabilizarVenta() {
 		}
 
 	} while (existe == false);
-	delete dni;
+	delete[] dni;
 
 }
 void clsMenuPrincipal::VentaTextil(int tamanyo, Cliente * cliente) {
@@ -545,7 +550,7 @@ void clsMenuPrincipal::VentaTextil(int tamanyo, Cliente * cliente) {
 		}
 
 	} while (comprobar_textil(codigo));
-	delete codigo;
+	delete[] codigo;
 }
 void clsMenuPrincipal::Contabilizar_Ventatextil(Textil *textil, int cantidad) {
 	float precio = textil->getPrecio();
@@ -626,7 +631,7 @@ void clsMenuPrincipal::VentaComplemento(int tamanyo, Cliente * cliente) {
 		}
 
 	} while (comprobar_complemento(codigo));
-	delete codigo;
+	delete[] codigo;
 
 }
 
@@ -755,9 +760,9 @@ void clsMenuPrincipal::anyadirTextil() {
 
 		}
 	}
-	delete nom;
-	delete codigo;
-	delete color;
+	delete[] nom;
+	delete[] codigo;
+	delete[] color;
 }
 /**
  * Metodo para comprobar si existe el textil introducido

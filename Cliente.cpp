@@ -16,11 +16,20 @@ Cliente::Cliente() {
 	this->nom = new char[30];
 	this->ape = new char [30];
 	this->dni = new char[9];
-	dni = "*********";
+	dni[0]= '*';
+	dni[1]= '*';
+	dni[2]= '*';
+	dni[3]= '*';
+	dni[4]= '*';
+	dni[5]= '*';
+	dni[6]= '*';
+	dni[7]= '*';
+	dni[8]= '*';
 	this->acumulado = 0.0;
 }
 
 Cliente::~Cliente() {
+
 	delete[] nom;
 	delete[] ape;
 	delete[] dni;
@@ -38,7 +47,8 @@ char* Cliente::getApe() const {
 	return this->ape;
 }
 void Cliente::setDni(char* dni) {
-	this->dni = dni;
+
+	this->dni= dni;
 }
 char* Cliente::getDni() const {
 	return this->dni;
