@@ -16,7 +16,7 @@ Textil::Textil() :
 	this->stockS = 0;
 	this->stockM = 0;
 	this->stockL = 0;
-	this->color = NULL;
+	this->color = new char[30];
 
 }
 Textil::~Textil() {
@@ -49,7 +49,7 @@ int Textil::getStockS() const {
 }
 void Textil::setColor(char* color) {
 	this->color = new char[strlen(color)];
-	this->color = color;
+	strcpy(this->color,color);
 }
 char* Textil::getColor() const {
 	return this->color;
