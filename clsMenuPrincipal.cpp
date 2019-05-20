@@ -47,15 +47,7 @@ void clsMenuPrincipal::menu(void) {
 	complementos = new Complemento[NUM_ARTIC];
 	textiles = new Textil[NUM_ARTIC];
 	a="*********";
-//	a[0]= '*';
-//	a[1]= '*';
-//	a[2]= '*';
-//	a[3]= '*';
-//	a[4]= '*';
-//	a[5]= '*';
-//	a[6]= '*';
-//	a[7]= '*';
-//	a[8]= '*';
+
 	if (!nuestro_balance->existsFile("Balance.dat")) {
 		nuestro_balance->introducir();
 
@@ -215,7 +207,7 @@ void clsMenuPrincipal::imprimirTodosClientes() {
 	for (int i = 0; i < NUM_CLIENTES; i++)
 	{
 		cout<<"lo quecompara es: "<< (cltes + i)->getDni()<<" con "<<a;cout<<endl;
-		cout<< " la comparación da :" << (strcmp((cltes + i)->getDni(), a))<<endl;
+		cout<< " la comparaciï¿½n da :" << (strcmp((cltes + i)->getDni(), a))<<endl;
 		if (((strcmp((cltes + i)->getDni(), a)) != 0))
 		{
 			(cltes + i)->imprimirCliente();
