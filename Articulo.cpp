@@ -15,7 +15,7 @@ using namespace std;
 Articulo::Articulo()
 {
 	this->codigo= new char[9];
-	codigo = "*********";
+	codigo[0] = '*';
 	this->nombre= new char[30];
 	this->precio = 0.0;
 

@@ -14,7 +14,7 @@ using namespace std;
 Proveedor::Proveedor() {
 	this->nom = new char[30];
 	this->NIF = new char[9];
-	NIF = "*********";
+	NIF[0] = '*';
 
 }
 Proveedor::~Proveedor() {

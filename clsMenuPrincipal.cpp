@@ -46,7 +46,7 @@ void clsMenuPrincipal::menu(void) {
 	cuentaPyG = new CuentaPyG();
 	complementos = new Complemento[NUM_ARTIC];
 	textiles = new Textil[NUM_ARTIC];
-	a = "*********";
+	a[0] = '*';
 	if (!nuestro_balance->existsFile("Balance.dat")) {
 		nuestro_balance->introducir();
 
