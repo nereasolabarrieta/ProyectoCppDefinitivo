@@ -46,7 +46,7 @@ void clsMenuPrincipal::menu(void) {
 	cuentaPyG = new CuentaPyG();
 	complementos = new Complemento[NUM_ARTIC];
 	textiles = new Textil[NUM_ARTIC];
-	a[0] = '*';
+	a = "*********";
 	if (!nuestro_balance->existsFile("Balance.dat")) {
 		nuestro_balance->introducir();
 
@@ -126,10 +126,7 @@ void clsMenuPrincipal::menu(void) {
 			nuestro_balance->modificarBalance();
 			break;
 		case '0':
-			delete []cltes;
-			delete []provs;
-			delete []complementos;
-			delete []textiles;
+
 			cout << "Agur" << endl;
 			break;
 		default:
@@ -175,9 +172,6 @@ void clsMenuPrincipal::anyadirCliente() {
 
 		}
 	}
-	delete[] nom;
-	delete[] dni;
-	delete[] ape;
 
 }
 
@@ -203,8 +197,7 @@ bool clsMenuPrincipal::ComprobarClte(char *dni) {
  */
 void clsMenuPrincipal::imprimirTodosClientes() {
 	bool existen_clientes = false;
-	cout<<"CLIENTES:"<<endl;
-	cout<<"--------------------------------------"<<endl;
+
 	for (int i = 0; i < NUM_CLIENTES; i++) {
 
 		if (!((strcmp((cltes + i)->getDni(), a)) == 0)) {
@@ -251,8 +244,6 @@ void clsMenuPrincipal::anyadirProveedor() {
 
 		}
 	}
-	delete[] NIF;
-	delete[] nom;
 
 }
 
@@ -275,10 +266,6 @@ bool clsMenuPrincipal::ComprobarProv(char *NIF) {
  * Metodo para imprimir todos los proveedores guardados.
  */
 void clsMenuPrincipal::imprimirTodosProveedores() {
-
-	cout<<"PROVEEDORES:"<<endl;
-	cout<<"--------------------------------------"<<endl;
-
 	for (int i = 0; i < NUM_PROV; i++) {
 
 		if (!((strcmp((provs + i)->getNIF(), a)) == 0)) {
@@ -352,6 +339,7 @@ void clsMenuPrincipal::anyadirComplemento() {
 				cin >> stock;
 				cout << endl;
 				cin.ignore();
+
 				(complementos + i)->setCodigo(codigo);
 				(complementos + i)->setNombre(nom);
 				(complementos + i)->setPrecio(precio);
@@ -385,8 +373,8 @@ void clsMenuPrincipal::anyadirComplemento() {
 
 		}
 	}
-	delete[] codigo;
-	delete[] nom;
+	delete codigo;
+	delete nom;
 }
 void clsMenuPrincipal::ContabilizarVenta() {
 	bool existe = false;
@@ -439,7 +427,7 @@ void clsMenuPrincipal::ContabilizarVenta() {
 		}
 
 	} while (existe == false);
-	delete[] dni;
+	delete dni;
 
 }
 void clsMenuPrincipal::VentaTextil(int tamanyo, Cliente * cliente) {
@@ -557,7 +545,7 @@ void clsMenuPrincipal::VentaTextil(int tamanyo, Cliente * cliente) {
 		}
 
 	} while (comprobar_textil(codigo));
-	delete[] codigo;
+	delete codigo;
 }
 void clsMenuPrincipal::Contabilizar_Ventatextil(Textil *textil, int cantidad) {
 	float precio = textil->getPrecio();
@@ -638,7 +626,7 @@ void clsMenuPrincipal::VentaComplemento(int tamanyo, Cliente * cliente) {
 		}
 
 	} while (comprobar_complemento(codigo));
-	delete[] codigo;
+	delete codigo;
 
 }
 
@@ -767,9 +755,9 @@ void clsMenuPrincipal::anyadirTextil() {
 
 		}
 	}
-	delete[] nom;
-	delete[] codigo;
-	delete[] color;
+	delete nom;
+	delete codigo;
+	delete color;
 }
 /**
  * Metodo para comprobar si existe el textil introducido

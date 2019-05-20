@@ -16,7 +16,7 @@ Cliente::Cliente() {
 	this->nom = new char[30];
 	this->ape = new char [30];
 	this->dni = new char[9];
-	dni[0] = '*';
+	dni = "*********";
 	this->acumulado = 0.0;
 }
 
