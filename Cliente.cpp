@@ -16,15 +16,17 @@ Cliente::Cliente() {
 	this->nom = new char[30];
 	this->ape = new char [30];
 	this->dni = new char[9];
-	dni[0]= '*';
-	dni[1]= '*';
-	dni[2]= '*';
-	dni[3]= '*';
-	dni[4]= '*';
-	dni[5]= '*';
-	dni[6]= '*';
-	dni[7]= '*';
-	dni[8]= '*';
+//	dni[0]= '*';
+//	dni[1]= '*';
+//	dni[2]= '*';
+//	dni[3]= '*';
+//	dni[4]= '*';
+//	dni[5]= '*';
+//	dni[6]= '*';
+//	dni[7]= '*';
+//	dni[8]= '*';
+	char * dni_vacio="*********";
+	this->dni=dni_vacio;
 	this->acumulado = 0.0;
 }
 

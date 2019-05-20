@@ -23,7 +23,7 @@ using namespace proveedor;
 using namespace textil;
 using namespace complemento;
 const int NUM_PROV = 20;
-const int NUM_CLIENTES = 100;
+const int NUM_CLIENTES = 4;
 const int NUM_ARTIC = 30;
 
 Cliente* cltes;
@@ -46,7 +46,16 @@ void clsMenuPrincipal::menu(void) {
 	cuentaPyG = new CuentaPyG();
 	complementos = new Complemento[NUM_ARTIC];
 	textiles = new Textil[NUM_ARTIC];
-	a = "*********";
+	a="*********";
+//	a[0]= '*';
+//	a[1]= '*';
+//	a[2]= '*';
+//	a[3]= '*';
+//	a[4]= '*';
+//	a[5]= '*';
+//	a[6]= '*';
+//	a[7]= '*';
+//	a[8]= '*';
 	if (!nuestro_balance->existsFile("Balance.dat")) {
 		nuestro_balance->introducir();
 
@@ -203,13 +212,14 @@ bool clsMenuPrincipal::ComprobarClte(char *dni) {
 void clsMenuPrincipal::imprimirTodosClientes() {
 	bool existen_clientes = false;
 
-	for (int i = 0; i < NUM_CLIENTES; i++) {
-
-		if (!((strcmp((cltes + i)->getDni(), a)) == 0)) {
-
+	for (int i = 0; i < NUM_CLIENTES; i++)
+	{
+		cout<<"lo quecompara es: "<< (cltes + i)->getDni()<<" con "<<a;cout<<endl;
+		cout<< " la comparación da :" << (strcmp((cltes + i)->getDni(), a))<<endl;
+		if (((strcmp((cltes + i)->getDni(), a)) != 0))
+		{
 			(cltes + i)->imprimirCliente();
 			existen_clientes = true;
-
 		}
 	}
 	if (!existen_clientes) {
