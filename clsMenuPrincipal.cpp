@@ -23,7 +23,7 @@ using namespace proveedor;
 using namespace textil;
 using namespace complemento;
 const int NUM_PROV = 20;
-const int NUM_CLIENTES = 4;
+const int NUM_CLIENTES = 100;
 const int NUM_ARTIC = 30;
 
 Cliente* cltes;
@@ -206,8 +206,7 @@ void clsMenuPrincipal::imprimirTodosClientes() {
 
 	for (int i = 0; i < NUM_CLIENTES; i++)
 	{
-		cout<<"lo quecompara es: "<< (cltes + i)->getDni()<<" con "<<a;cout<<endl;
-		cout<< " la comparaci�n da :" << (strcmp((cltes + i)->getDni(), a))<<endl;
+
 		if (((strcmp((cltes + i)->getDni(), a)) != 0))
 		{
 			(cltes + i)->imprimirCliente();
