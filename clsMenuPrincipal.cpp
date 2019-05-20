@@ -126,10 +126,10 @@ void clsMenuPrincipal::menu(void) {
 			nuestro_balance->modificarBalance();
 			break;
 		case '0':
-			cltes->~Cliente();
-			provs->~Proveedor();
-			complementos->~Complemento();
-			textiles->~Textil();
+			delete []cltes;
+			delete []provs;
+			delete []complementos;
+			delete []textiles;
 			cout << "Agur" << endl;
 			break;
 		default:
@@ -203,7 +203,8 @@ bool clsMenuPrincipal::ComprobarClte(char *dni) {
  */
 void clsMenuPrincipal::imprimirTodosClientes() {
 	bool existen_clientes = false;
-
+	cout<<"CLIENTES:"<<endl;
+	cout<<"--------------------------------------"<<endl;
 	for (int i = 0; i < NUM_CLIENTES; i++) {
 
 		if (!((strcmp((cltes + i)->getDni(), a)) == 0)) {
@@ -274,6 +275,10 @@ bool clsMenuPrincipal::ComprobarProv(char *NIF) {
  * Metodo para imprimir todos los proveedores guardados.
  */
 void clsMenuPrincipal::imprimirTodosProveedores() {
+
+	cout<<"PROVEEDORES:"<<endl;
+	cout<<"--------------------------------------"<<endl;
+
 	for (int i = 0; i < NUM_PROV; i++) {
 
 		if (!((strcmp((provs + i)->getNIF(), a)) == 0)) {
